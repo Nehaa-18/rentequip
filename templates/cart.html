@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart</title>
+    <style>
+        .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item-details {
+    display: flex;
+    align-items: center;
+}
+
+.cart-item-name {
+    font-weight: bold;
+    margin-right: 10px;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.remove-from-cart-btn,
+.quantity-btn {
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.remove-from-cart-btn:hover,
+.quantity-btn:hover {
+    background-color: #e74c3c;
+}
+
+.cart-item-quantity {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.cart-item-price {
+    font-weight: bold;
+}
+
+.continue-shopping-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #3498db;
+    font-weight: bold;
+}
+
+.continue-shopping-link:hover {
+    text-decoration: underline;
+}
+
+.checkout-button {
+    display: inline-block;
+    background-color: #28a745; 
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-left: 400px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.checkout-button:hover {
+    background-color: #218838;
+}
+
+
+.cart-product-image {
+    width: 100px; /* Set the width as per your desired size */
+    height: auto; /* Maintain aspect ratio */
+    /* Additional styles (if needed) */
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cart-header">
+            <h1>Your Cart</h1>
+        </div>
+        <div class="cart-table">
+            <div class="cart-items">
+                <div class="cart-item cart-heading">
+                    <div class="cart-item-details"><b> PRODUCT</b></div>
+                    <div class="cart-item-remove"><b>REMOVE</b></div>
+                    <div class="cart-item-quantity"><b>QUANTITY</b></div>
+                    <div class="cart-item-price"><b>PRICE</b></div>
+                </div>
+                  <ul>
+{% for item in cart_items %}
+        <li class="cart-item">
+            <div class="cart-item-details">
+                <div class="cart-item-name">{{ item.product.name }}</div>
+                <form action="{% url 'remove-from-cart' item.product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="remove-from-cart-btn" type="submit">Remove</button>
+                </form>
+            </div>
+            <div class="cart-item-quantity">
+                <form action="{% url 'increase-cart-item' item.product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="quantity-btn increase-quantity" type="submit">+</button>
+                </form>
+                <span class="item-quantity">{{ item.quantity }}</span>
+                <form action="{% url 'decrease-cart-item' item.product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="quantity-btn decrease-quantity" type="submit">-</button>
+                </form>
+            </div>
+            
+            <div class="cart-item-price" data-price="{{ item.product.price_per_day }}">
+                ${{ item.product.price_per_day }}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <p class="total-price-data"><span id="total-price"></span></p>
+
+    <a class="continue-shopping-link" href="{% url 'product' %}">Continue Shopping</a>
+
+    <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
+</div>
+<script src="{% static 'js/cart.js' %}"></script>
+
+
+
+</body>
+
+
+
+</html>

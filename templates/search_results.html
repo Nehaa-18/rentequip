@@ -1,0 +1,512 @@
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+
+    <p>Showing results for '{{ query }}':</p>
+
+<main>
+    <div class="container">
+        <div class="row">
+            {% if results %}
+                {% for product in results %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>{{ product.name }}</h3>
+                                <p>Description: {{ product.description }}</p>
+                                <p>Rating: {{ product.rating }}</p>
+                                <p>Price per day: Rs. {{ product.price_per_day }}</p>
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
+                                {% if product.availability %}
+                                    <p class="card-text">Availability: In Stock</p>
+                                {% else %}
+                                    <p class="card-text">Availability: Out of Stock</p>
+                                {% endif %}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <form method="post" action="{% url 'add-to-cart' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">Add to cart</button>
+                                    </form>
+                                    <form method="post" action="{% url 'add_to_wishlist' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-info">Add to wishlist</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>No results found for '{{ query }}'.</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+
+
+
+
+
+
+
+  
+
+</body>
+</html>
+ {% endcomment %}
+
+
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <!-- Mobile Metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <!-- Site Metas -->
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <link rel="shortcut icon" href="{% static '/images/reimage.png' %}" type="">
+      <title>RENT-Equip - Rent an Equipment Website</title>
+      <!-- bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}" />
+      <!-- font awesome style -->
+      <link href="{% static '/css/font-awesome.min.css' %}" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="{% static '/css/style.css' %}" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="{% static '/css/responsive.css' %}" rel="stylesheet" />
+
+      <style>
+         /* Reset some default styles */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    background-image:  url("{% static '/images/sliderbg.jpg' %}");
+}
+
+
+header {
+    background-color: #e6e6e6;
+    color: #141313;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    text-align: right;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+nav a.active {
+    font-weight: bold;
+}
+
+.product-list {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+
+.rent-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.rent-button:hover {
+    background-color: #555;
+}
+
+footer {
+    text-align: center;
+    background-color: #e6e6e6;
+    color: #010101;
+    padding: 10px 0;
+}
+#search-bar {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .equipment-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .equipment-item {
+            width: 30%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .rent-button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+      
+      .card-img-top {
+        height: 200px; /* Set the desired height for the card images */
+        object-fit: cover; /* Maintain aspect ratio and cover the entire space */
+    }
+
+
+
+    /* CSS to position the wishlist icon */
+.wishlist-icon {
+    position: absolute;
+    top: 10px; /* Adjust the top position */
+    right: 10px; /* Adjust the right position */
+    cursor: pointer;
+    z-index: 1; /* Ensure it's above other elements */
+}
+
+/* Additional styling for the heart icon */
+.fa-heart {
+    color: #ff0000; /* Set color */
+    font-size: 24px; /* Adjust icon size */
+}
+
+
+
+      </style>
+   </head>
+   <body>
+   <!-- Inside your "product.html" template -->
+      
+
+      <div class="hero_area">
+     
+         <!-- header section strats -->
+         <header class="header_section">
+            <div class="container">
+               <nav class="navbar navbar-expand-lg custom_nav-container ">
+                  <a class="navbar-brand" href="index.html"><img width="50" src="{% static '/images/reimage.png' %}" alt="#" /></a><p><b>RENT-Equip</b></p>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul class="navbar-nav">
+                        <li class="nav-item active">
+                           <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                       <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                              <li><a href="about.html">About</a></li>
+                              <li><a href="contact.html">Contact</a></li>
+                           </ul>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="product">Products</a>
+                        </li>
+                       
+                        <!--<li class="nav-item">
+                           <a class="nav-link" href="registration.html">Register</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="login.html">Login</a>
+                        </li>-->
+                        
+                        <li class="nav-item">
+                           <a class="nav-link" href="cart">Cart
+                              <svg version="1.1" id="Capa_1" xmlns="'/http://www.w3.org/2000/svg" xmlns:xlink="/http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                                 <g>
+                                    <g>
+                                       <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                                          c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                    <g>
+                                       <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                                          C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                                          c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                                          C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                    <g>
+                                       <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                                          c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                              </svg>
+                           </a>
+                        </li>
+                        <form class="form-inline" action="{% url 'product' %}" method="GET">
+    <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
+        <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+</form>
+
+                        <li class="nav-item">
+                        {% if user.is_authenticated %}
+                        <a href="logout" class="btn btn-primary ml-lg-3">Logout</a>
+                        {% else %}
+                        <a href="login.html" class="btn btn-primary ml-lg-3">Login/Register</a>
+                        {%endif%}
+                        </li>
+
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+         </header>
+         <br><br>
+         <br><br>
+         <br><br>
+         
+         <!-- end header section -->
+         <!-- product section starts-->
+         
+<h1 align="center">Search Results</h1>
+
+    <p align="center">Showing results for '{{ query }}':</p>
+
+<main>
+    <div class="container">
+        <div class="row">
+            {% if results %}
+                {% for product in results %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                 <img src="{{ product.image.url }}" alt="{{ product.name }}" width="100">
+                                <h3>{{ product.name }}</h3>
+                                <p>Description: {{ product.description }}</p>
+                                <p>Rating: {{ product.rating }}</p>
+                                <p>Price per day: Rs. {{ product.price_per_day }}</p>
+                               
+                                {% if product.availability %}
+                                    <p class="card-text">Availability: In Stock</p>
+                                {% else %}
+                                    <p class="card-text">Availability: Out of Stock</p>
+                                {% endif %}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <form method="post" action="{% url 'add-to-cart' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">Add to cart</button>
+                                    </form>
+                                    <form method="post" action="{% url 'add_to_wishlist' product.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-info">Add to wishlist</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>No results found for '{{ query }}'.</p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+    
+
+  
+      <!-- footer start -->
+      <footer>
+         <div class="container">
+            <div class="row">
+               <div class="col-md-4">
+                   <div class="full">
+                      <div class="logo_footer">
+                        <a href="#"><img width="110" src="{% static '/images/reimage.png' %}" alt="#" /></a>
+                      </div>
+                      <div class="information_f">
+                        <p><strong>ADDRESS:</strong> MG Road Thalassery,Kannur,Kerala</p>
+                        <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
+                        <p><strong>EMAIL:</strong> rentequip@gmail.com</p>
+                      </div>
+                   </div>
+               </div>
+               <div class="col-md-8">
+                  <div class="row">
+                  <div class="col-md-7">
+                     <div class="row">
+                        <div class="col-md-6">
+                     <div class="widget_menu">
+                        <h3>Menu</h3>
+                        <ul>
+                           <li><a href="index.html">Home</a></li>
+                           <li><a href="#">About</a></li>
+                          
+                           <li><a href="#">Contact</a></li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="widget_menu">
+                        <h3>Account</h3>
+                        <ul>
+                           <li><a href="#">Account</a></li>
+                          
+                           <li><a href="#">Login</a></li>
+                           <li><a href="#">Register</a></li>
+                          
+                        </ul>
+                     </div>
+                  </div>
+                     </div>
+                  </div>     
+                 
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- footer end -->
+      <div class="cpy_">
+         <p class="mx-auto">© 2023 All Rights Reserved By <a href="/https://html.design/">RENT-Equip</a><br></p>
+      </div>
+      <!-- jQery -->
+      <script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+      <!-- popper js -->
+      <script src="{% static '/js/popper.min.js' %}"></script>
+      <!-- bootstrap js -->
+      <script src="{% static '/js/bootstrap.js' %}"></script>
+      <!-- custom js -->
+      <script src="{% static '/js/custom.js' %}"></script>
+
+
+
+     
+<script>
+    
+  function toggleWishlist(element) {
+    const productId = element.getAttribute('data-product-id');
+
+    // Perform AJAX request to toggle wishlist status
+    fetch(`/toggle_wishlist/?product_id=${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'added') {
+                // Toggle heart icon to red if added to wishlist
+                element.innerHTML = '<i class="fa fa-heart red-heart"></i>';
+            } else {
+                // Toggle heart icon to regular if removed from wishlist
+                element.innerHTML = '<i class="fa fa-heart"></i>';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function searchProducts() {
+    var input, filter, products, i, productName;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    products = document.querySelectorAll('.product-item');
+
+    for (i = 0; i < products.length; i++) {
+        productName = products[i].getAttribute('data-name');
+        if (productName.toUpperCase().indexOf(filter) > -1) {
+            products[i].style.display = ""; // Show matching products
+        } else {
+            products[i].style.display = "none"; // Hide non-matching products
+        }
+    }
+}
+
+</script>
+
+
+    
+</body>
+</html>

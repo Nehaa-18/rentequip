@@ -1,0 +1,521 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <!-- Mobile Metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <!-- Site Metas -->
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <link rel="shortcut icon" href="{% static '/images/reimage.png' %}" type="">
+      <title>RENT-Equip - Rent an Equipment Website</title>
+      <!-- bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}" />
+      <!-- font awesome style -->
+      <link href="{% static '/css/font-awesome.min.css' %}" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="{% static '/css/style.css' %}" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="{% static '/css/responsive.css' %}" rel="stylesheet" />
+
+      <style>
+         /* CSS styling for the login form */
+         body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: white;
+            background-image:  url("{% static '/images/sliderbg.jpg' %}");
+            background-size: cover;
+         }
+
+         .registration-container {
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 100px;
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+         }
+
+         .registration-container h2 {
+            text-align: center;
+         }
+
+         .input-group {
+            margin-bottom: 15px;
+         }
+
+         .input-group label {
+            display: block;
+            margin-bottom: 5px;
+         }
+
+         .input-group input {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+         }
+
+         .registration-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6da4dfe0;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+         }
+
+         .registration-button:hover {
+            background-color: #75a3d3d2;
+         }
+
+         body {
+
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-image: "signupback.jpg";
+         }
+         footer{
+      background-color: #e6e6e6;
+    }
+
+
+
+form {
+      margin: 0 30px;
+      }
+      .account-type, .gender {
+      margin: 15px 0;
+      }
+      input[type=radio] {
+      display: none;
+      }
+      label#icon {
+      margin: 0;
+      border-radius: 5px 0 0 5px;
+      }
+      label.radio {
+      position: relative;
+      display: inline-block;
+      padding-top: 4px;
+      margin-right: 20px;
+      text-indent: 30px;
+      overflow: visible;
+      cursor: pointer;
+      }
+      label.radio:before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #1c87c9;
+      }
+      label.radio:after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 4px;
+      top: 8px;
+      left: 4px;
+      border: 3px solid #fff;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      opacity: 0;
+      }
+      input[type=radio]:checked + label:after {
+      opacity: 1;
+      }
+      input[type=text], input[type=password] {
+      width: calc(100% - 57px);
+      height: 36px;
+      margin: 13px 0 0 -5px;
+      padding-left: 10px; 
+      border-radius: 0 5px 5px 0;
+      border: solid 1px #cbc9c9; 
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #fff; 
+      }
+      input[type=password] {
+      margin-bottom: 15px;
+      }
+      #icon {
+      display: inline-block;
+      padding: 9.3px 15px;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
+      background: #1c87c9;
+      color: #fff;
+      text-align: center;
+      }
+      .btn-block {
+      margin-top: 10px;
+      text-align: center;
+      }
+      button {
+      width: 100%;
+      padding: 10px 0;
+      margin: 10px auto;
+      border-radius: 5px; 
+      border: none;
+      background: #1c87c9; 
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      }
+      button:hover {
+      background: #26a9e0;
+      }
+      </style>
+   </head>
+   </head>
+   <body>
+      <div class="hero_area">
+         <!-- header section strats -->
+         <header class="header_section">
+            <div class="container">
+               <nav class="navbar navbar-expand-lg custom_nav-container ">
+                  <a class="navbar-brand" href="index.html"><img width="50" src="{% static '/images/reimage.png' %}" alt="#" /></a><p><b>RENT-Equip</b></p>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class=""> </span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                     <ul class="navbar-nav">
+                        <li class="nav-item active">
+                           <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                              <li><a href="about.html">About</a></li>
+                              <li><a href="contact.html">Contact</a></li>
+                           </ul>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="product">Products</a>
+                        </li>
+                       
+                        <li class="nav-item">
+                           <a class="nav-link" href="cart">Cart
+                              <svg version="1.1" id="Capa_1" xmlns="/http://www.w3.org/2000/svg" xmlns:xlink="/http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                                 <g>
+                                    <g>
+                                       <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248 c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                    <g>
+                                       <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48 C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064 c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4 C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                    <g>
+                                       <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296 c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                                    </g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                                 <g>
+                                 </g>
+                              </svg>
+                           </a>
+                        </li>
+                        <form class="form-inline">
+                           <a href="product" class="btn  my-2 my-sm-0 nav_search-btn" >
+                              
+                           <i class="fa fa-search" aria-hidden="true"></i>
+                           </a>
+                        </form>
+                        <li class="nav-item">
+                        {% if user.is_authenticated %}
+                        <a href="logout" class="btn btn-primary ml-lg-3">Logout</a>
+                        {% else %}
+                        <a href="login.html" class="btn btn-primary ml-lg-3">Login/Register</a>
+                        {%endif%}
+                        </li>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+         </header>
+         <div class="registration-container">
+            <h2>SIGN UP </h2>
+            <form action="" method="POST">
+            <!-- Success message container -->
+            <div id="successMessage" style="color: green;"></div>
+               {% csrf_token %}
+               <div class="input-group">
+                  <label for="username">Username:</label>
+                  <input type="text" id="username" name="username" required>
+                  <span id="usernameError" style="color: red;" class="error"></span> <!-- Username error message -->
+               </div>
+              
+               <div class="input-group">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" required>
+                  <span id="emailError" style="color: red;" class="error"></span> <!-- Email error message -->
+               </div>
+               <div class="input-group">
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" name="password" required>
+                  <span id="passwordError" style="color: red;" class="error"></span> <!-- Password error message -->
+               </div>
+               <div class="input-group">
+                  <label for="confirm_password">Confirm Password:</label>
+                  <input type="password" id="confirm_password" name="confirm_password" required>
+                  <span id="confirmPasswordError" style="color: red;" class="error"></span> <!-- Confirm Password error message -->
+               </div>
+               {% comment %} <form onsubmit="return validateForm()">
+                  <div class="input-group">
+                     <label for="account">Account Type:</label>&nbsp;&nbsp;
+                     <select id="account" name="usertype">
+                        <option value="notselected">Not Selected</option>
+                        <option value="User">User</option>
+                        <option value="Organisation">Organisation</option>
+                     </select>
+                  </div> {% endcomment %}
+                  <div class="account-type">
+                     <input type="radio" id="userAccount" name="usertype" value="User" checked>
+                     <label for="userAccount" class="radio">User</label>
+                     <input type="radio" id="companyAccount" name="usertype" value="Company">
+                     <label for="companyAccount" class="radio">Company</label>
+                  </div>
+                  <form onsubmit="return validateForm()">
+                  <center>
+                     <button type="submit">Create Account</button>
+                  </center>
+                  <br><center><p style="display: inline;">Already have an account?&nbsp;&nbsp;<a href="login.html"  style="color: rgb(61, 88, 147);">Sign in</a></p></center>
+                 
+
+                     
+                
+
+               </form>
+         </div>
+         <br><br>
+         <footer>
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-4">
+                     <div class="full">
+                        <div class="logo_footer">
+                           <a href="#"><img width="110" src="{% static '/images/reimage.png' %}" alt="#" /></a>
+                        </div>
+                        <div class="information_f">
+                           <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
+                           <p><strong>EMAIL:</strong> rentequip@gmail.com</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-8">
+                     <div class="row">
+                        <div class="col-md-7">
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <div class="widget_menu">
+                                    <h3>Menu</h3>
+                                    <ul>
+                                       <li><a href="index.html">Home</a></li>
+                                       <li><a href="#">About</a></li>
+                                     
+                                       <li><a href="#">Contact</a></li>
+                                    </ul>
+                                 </div>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="widget_menu">
+                                    <h3>Account</h3>
+                                    <ul>
+                                       <li><a href="#">Account</a></li>
+                                       
+                                       <li><a href="#">Login</a></li>
+                                       <li><a href="#">Register</a></li>
+                                       
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </footer>
+         <!-- jQery -->
+         <script src="{% static '/js/jquery-3.4.1.min.js' %}"></script>
+         <!-- popper js -->
+         <script src="{% static '/js/popper.min.js' %}"></script>
+         <!-- bootstrap js -->
+         <script src="{% static '/js/bootstrap.js' %}"></script>
+         <!-- custom js -->
+         <script src="{% static '/js/custom.js' %}"></script>
+<script>
+           
+function validateForm() {
+        var selectedAccount = document.querySelector('input[name="usertype"]:checked');
+        if (selectedAccount) {
+            return true; // Allow registration
+        } else {
+            alert("Please select a valid Account Type (User or Organisation).");
+            return false; // Prevent registration
+        }
+    }
+             
+           
+           // Function to validate lowercase Gmail email
+function validateEmail(email) {
+   const emailPattern = /^[a-z0-9._-]+@[a-z.-]+\.[a-z]{2,4}$/;
+   return emailPattern.test(email);
+}
+
+
+            // Function to validate username
+            function validateUsername(username) {
+            // Check if the username is at least 4 characters long
+               if (username.length < 4) {
+               return false;
+                }
+
+  // Check if the username contains any numeric characters
+  for (let i = 0; i < username.length; i++) {
+    if (!isNaN(username[i])) {
+      return false; // Username contains a numeric character
+    }
+  }
+
+  // If all checks pass, the username is valid
+  return true;
+}
+
+            // Function to validate password
+            function validatePassword(password) {
+               const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$/;
+               return passwordPattern.test(password);
+            }
+
+            // Handle username input
+            $("#username").on("input", function() {
+               const username = $(this).val();
+               const isValid = validateUsername(username);
+               if (!isValid) {
+                  $("#usernameError").text("Username must be at least 4 characters long and should not contain space  and numeric characters..");
+               } else {
+                  $("#usernameError").text("");
+               }
+            });
+
+            // Handle email input
+            $("#email").on("input", function() {
+               const email = $(this).val();
+               const isValid = validateEmail(email);
+               if (!isValid) {
+                  $("#emailError").text("Invalid email format.");
+               } else {
+                  $("#emailError").text("");
+               }
+            });
+
+            // Handle password input
+            $("#password").on("input", function() {
+               const password = $(this).val();
+               const isValid = validatePassword(password);
+               if (!isValid) {
+                  $("#passwordError").text("Password must contain at least one numeric digit, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.");
+               } else {
+                  $("#passwordError").text("");
+               }
+            });
+
+            // Handle confirm password input
+            $("#confirm_password").on("input", function() {
+               const confirmPassword = $(this).val();
+               const password = $("#password").val();
+               if (confirmPassword !== password) {
+                  $("#confirmPasswordError").text("Passwords do not match.");
+               } else {
+                  $("#confirmPasswordError").text("");
+               }
+            });
+
+
+
+   {% comment %} function validateForm() {
+      // Clear any previous success message
+      document.getElementById("successMessage").innerHTML = "";
+
+      // Your form validation logic here
+
+      // Assuming the form is valid, show the success message
+      document.getElementById("successMessage").innerHTML = "Successfully registered!";
+
+      // Optionally, clear the success message after a delay (e.g., 5 seconds)
+      setTimeout(function() {
+         document.getElementById("successMessage").innerHTML = "";
+      }, 5000); // 5000 milliseconds (5 seconds)
+
+      return true; // Allow the form to be submitted
+   } {% endcomment %}
+function validateForm() {
+      // Clear any previous error messages
+      document.getElementById("emailError").innerHTML = "";
+
+      // Validate email using a regular expression
+      const email = document.getElementById("email").value;
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,4}$/;
+
+      if (!emailPattern.test(email)) {
+         document.getElementById("emailError").innerHTML = "Invalid email format.";
+         return false; // Prevent form submission
+      }
+
+      // Assuming the form is valid, show the success message
+      document.getElementById("successMessage").innerHTML = "Successfully registered!";
+
+      // Optionally, clear the success message after a delay (e.g., 5 seconds)
+      setTimeout(function() {
+         document.getElementById("successMessage").innerHTML = "";
+      }, 5000); // 5000 milliseconds (5 seconds)
+
+      return true; // Allow the form to be submitted
+   }
+</script>
+</body>
+</html>

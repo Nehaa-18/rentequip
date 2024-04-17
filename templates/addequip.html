@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color:#D3D3D3; /* Use your preferred background color */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        .header {
+            background-color:  #4d4f68; /* Use your preferred header background color */
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between; /* Align items horizontally */
+            align-items: center; /* Align items vertically */
+            width: 100%; /* Header width spans the whole page */
+            position: fixed; /* Fixed position for the header */
+            z-index: 1; /* Ensure the header appears above the sidebar */
+        }
+
+        /* Page title styles */
+        .page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold; /* Make the text bold */
+    color: white; /* Set the text color to white */
+}
+
+
+        /* Logout button styles */
+        #logout-link {
+            background-color: #FF0000; /* Use your preferred button background color */
+            color: #fff; /* Use your preferred button text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        #logout-link:hover {
+            background-color: #FF0000; /* Use your preferred button hover background color */
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #001f3f; /* Use your preferred background color */
+            color: #fff; /* Use your preferred text color */
+            padding-top: 20px;
+            margin-top: 60px; /* Adjust margin to start after the header */
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+        }
+
+        .sidebar a {
+            color: #fff; /* Use your preferred text color */
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color:#4d4f68; /* Use your preferred hover background color */
+        }
+
+        /* Main content styles */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+
+
+        /* Main content styles */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+
+      /* Style inputs, select elements, and textareas */
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+/* Center the submit button */
+.submit-container {
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Style the container */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+/* Floating column for labels: 25% width */
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+/* Floating column for inputs: 75% width */
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}  
+
+/* Adjust the width of the dropdown */
+.wide-dropdown {
+  width: 100%; /* Adjust this value to your desired width */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="page-title">Admin Dashboard</h1>
+        <a href="{% url 'logout' %}" class="btn btn-primary" id="logout-link">Logout</a>
+    </div>
+
+    <!-- Sidebar -->
+  <div class="sidebar">
+    <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="{% url 'regusers' %}">Regular Users</a></li>
+        <li><a href="{% url 'cusers' %}">Company Users</a></li>
+        
+        <li><a href="{% url 'addequip' %}">Add Equipments</a></li>
+        <li><a href="{% url 'view_equip' %}">View Equipments</a></li>
+        {% comment %} <li>
+            <label for="view-equipments">View Equipments:</label>
+            <select id="view-equipments" onchange="location = this.value;">
+                <option value="" selected>Select an option</option>
+                <option value="{% url 'view_equip' %}">All Equipments</option>
+                <option value=>Moving Equipment</option>
+                <option value=>Office Equipment</option>
+                <!-- Add more options for different equipment categories -->
+            </select>
+        </li> {% endcomment %}
+        <!-- <li><a href="">Blocked users</a></li> -->
+    </ul>
+  </div>
+
+
+    <!-- Main content -->
+    <div class="content">
+        <!-- Content area -->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">Total Users</h5>
+                            <p class="card-text">{{ user_count }}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                      <!-- Add any additional statistics or content here -->
+                      </div>
+                  </div>
+
+            <!-- User table -->
+            
+  {% block content %}
+<h1>Add Product</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+   <div class="container">
+      <div class="row">
+        <div class="col-25">
+          <label for="equipname">Equipment Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="name" name="name" placeholder="Equipment Name">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="rating">Rating</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="rating" name="rating" placeholder="Rating (0 to 5)">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="description">Description</label>
+        </div>
+        <div class="col-75">
+          <textarea id="description" name="description" placeholder="Description"></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="price">Price</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="price_per_day" name="price_per_day" placeholder="Price">
+        </div>
+      </div>
+</div>
+
+
+  <div class="row">
+        <div class="col-25">
+          <label for="category">Category</label>
+        </div>
+        <div class="col-75">
+          <select id="category" name="category" onchange="populateSubcategories()">
+            <option value="moving">Moving Equipment</option>
+            <option value="office">Office Equipment</option>
+            <option value="sports">Sports Equipment</option>
+            <option value="audio">Audio Equipment</option>
+            <option value="visual">Visual Equipment</option>
+            <option value="dumpster">Dumpster Equipment</option>
+          </select>
+        </div>
+  </div>
+
+<div class="row">
+        <div class="col-25">
+          <label for="subcategory">Subcategory</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="subcategory" name="subcategory" placeholder="Enter Subcategory">
+            <!-- Subcategories will be populated dynamically based on the selected category -->
+          </select>
+        </div>
+      </div>
+
+<div class="row">
+        <div class="col-25">
+          <label for="availability">Availability</label>
+        </div>
+        <div class="col-75">
+          <input type="checkbox" id="availability" name="availability" value="True"> In Stock
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-25">
+          <label for="image">Upload Image</label>
+        </div>
+        <div class="col-75">
+          <input type="file" id="image" name="image">
+        </div>
+      </div>
+    </div>
+
+        <button type="submit">Add Product</button>
+    </div>
+</form>
+{% endblock %}
+
+
+    <script>
+        function confirmBlock(username, userId) {
+            console.log('Button clicked'); // Add this line to check if the function is called
+            if (confirm(Do you want to block ${username}?)) {
+                // If the admin confirms, redirect to the block_user view
+                window.location.href = /block_user/${userId};
+            }
+        }
+
+
+
+
+
+      const subcategoryOptions = {
+      moving: ['Volvo', 'gbg', 'hh'],  // Replace with your Moving Equipment subcategories
+      office: ['Chair', 'Table', 'hh'],     // Replace with your Office Equipment subcategories
+      sports: ['Cricket Bat', 'Hockey Kit', 'Badminton']  // Replace with your Sports Equipment subcategories
+      // Add subcategories for other equipment categories similarly
+    };
+
+    function populateSubcategories() {
+      const categorySelect = document.getElementById('category');
+      const subcategorySelect = document.getElementById('subcategory');
+      const selectedCategory = categorySelect.value;
+
+      subcategorySelect.innerHTML = ''; // Clear previous subcategories
+
+      const subcategories = subcategoryOptions[selectedCategory] || [];
+      subcategories.forEach((subcategory) => {
+        const option = document.createElement('option');
+        option.value = subcategory;
+        option.textContent = subcategory;
+        subcategorySelect.appendChild(option);
+      });
+    }
+
+    // Populate subcategories initially
+    populateSubcategories();
+    </script>
+  
+    <!-- Include Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+

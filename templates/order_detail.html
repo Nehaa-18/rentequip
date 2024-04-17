@@ -1,0 +1,15 @@
+<!-- order_detail.html -->
+{% load static %}
+ {% csrf_token %}
+<h1>Order Details - Order {{ order.id }}</h1>
+<p>User: {{ order.user }}</p>
+<p>Total Amount: {{ order.total_amount }}</p>
+<p>Payment ID: {{ order.payment_id }}</p>
+<p>Payment Status: {{ order.payment_status }}</p>
+
+<h2>Order Items</h2>
+<ul>
+  {% for order_item in order.orderitem_set.all %}
+    <li>{{ order_item.quantity }} x {{ order_item.product.name }} - ${{ order_item.item_total }}</li>
+  {% endfor %}
+</ul>

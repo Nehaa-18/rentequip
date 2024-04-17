@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f5f9; /* Use your preferred background color */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: #f0f5f9; /* Use your preferred header background color */
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between; /* Align items horizontally */
+            align-items: center; /* Align items vertically */
+            width: 100%; /* Header width spans the whole page */
+            position: fixed; /* Fixed position for the header */
+            z-index: 1; /* Ensure the header appears above the sidebar */
+        }
+
+        /* Page title styles */
+        .page-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Logout button styles */
+        #logout-link {
+            background-color: #80a4c2; /* Use your preferred button background color */
+            color: #fff; /* Use your preferred button text color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        #logout-link:hover {
+            background-color: #658da9; /* Use your preferred button hover background color */
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333; /* Use your preferred background color */
+            color: #fff; /* Use your preferred text color */
+            padding-top: 20px;
+            margin-top: 60px; /* Adjust margin to start after the header */
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+        }
+
+        .sidebar a {
+            color: #fff; /* Use your preferred text color */
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            background-color: #555; /* Use your preferred hover background color */
+        }
+
+        /* Main content styles */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1 class="page-title">Admin Dashboard</h1>
+        <a href="{% url 'logout' %}" class="btn btn-primary" id="logout-link">Logout</a>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+    <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="{% url 'usertypecount' %}">Users</a></li>
+        <li><a href="{% url 'addequip' %}">Add Equipments</a></li>
+        <li>
+            <label for="view-equipments">View Equipments:</label>
+            <select id="view-equipments" onchange="location = this.value;">
+                <option value="" selected>Select an option</option>
+                <option value="{% url 'view_equip' %}">All Equipments</option>
+                <option value=>Moving Equipment</option>
+                <option value=>Office Equipment</option>
+                <!-- Add more options for different equipment categories -->
+            </select>
+        </li>
+        <!-- <li><a href="">Blocked users</a></li> -->
+    </ul>
+</div>
+
+
+    <!-- Main content -->
+    <div class="content">
+        <!-- Content area -->
+        
+
+    <br><br>
+    <br><br>
+    <form method="post">
+    {% csrf_token %}
+    <table>
+    <tr>
+        <td><label for="companyName">Company Name:</label></td>
+        <td><input type="text" id="company_name" name="company_name" value="{{ company_profile.company_name }}"]></td>
+    </tr>
+    <tr>
+        <td><label for="firstName">First Name:</label></td>
+        <td><input type="text" id="first-name" name="first_name"  value="{{ user.first_name }}" ]></td>
+    </tr>
+    <tr>
+        <td><label for="lastName">Last Name:</label></td>
+        <td><input type="text" id="last-name" name="last_name" value="{{ user.last_name }}" ></td>
+    </tr>
+    <tr>
+        <td><label for="username">Username:</label></td>
+        <td><input type="text" id="username" name="username" value="{{ user.username }}" ></td>
+    </tr>
+    <tr>
+        <td><label for="email">Email:</label></td>
+        <td><input type="email" id="email" name="email" value="{{ user.email }}" ></td>
+    </tr>
+    <tr>
+        <td><label for="phone">Phone Number:</label></td>
+        <td><input type="number" id="phone" name="phone_number" value="{{ company_profile.phone_number }}" ></td>
+    </tr>
+    <tr>
+        <td><label for="website">Website:</label></td>
+        <td><input type="url" id="website" name="website" value="{{ company_profile.website }}" ></td>
+    </tr>
+    
+    <tr>
+        <td><label for="address">Address:</label></td>
+        <td><textarea id="address" name="address" >{{ company_profile.address }}</textarea></td>
+    </tr>
+    <tr>
+        <td><label for="pincode">Pin Code :</label></td>
+        <td><input type="number" id="pincode" name="pincode" value="{{ company_profile.pincode }}" ></td>
+    </tr>
+</table>
+<button type="submit">Save Changes</button>
+</div>
+</div>
+
+
+
+
+
+    <script>
+        function confirmBlock(username, userId) {
+            console.log('Button clicked'); // Add this line to check if the function is called
+            if (confirm(Do you want to block ${username}?)) {
+                // If the admin confirms, redirect to the block_user view
+                window.location.href = /block_user/${userId};
+            }
+        }
+    </script>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

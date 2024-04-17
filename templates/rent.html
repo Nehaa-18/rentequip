@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Rental</title>
+    <link rel="stylesheet" >
+    <style>
+    /* Apply some general styles to the page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    align:center;
+}
+
+h1 {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+/* Style the table */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 0px 5px 0px #888888;
+    border-color:bold;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+/* Style the "Calculate Rent" button */
+#calculate-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#calculate-button:hover {
+    background-color: #0056b3;
+}
+
+/* Style the "payment" button */
+#payment-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#payment-button:hover {
+    background-color: #0056b3;
+}
+
+/* Style the "Total Rent" display */
+#total-rent {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Style the date inputs and number of days input */
+input[type="date"], input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Center the "Date Selection" and "Total Rent" sections */
+.date-selection, .rent-button {
+    text-align: center;
+}
+
+/* Style the product details */
+.product-details {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 0px 5px 0px #888888;
+}
+
+/* Style the product image */
+.product-details img {
+    max-width: 100%;
+    height: auto;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Product Rental</h1>
+    
+    <table>
+        <tr>
+            <td colspan="2">
+                <h2>Product Details</h2>
+                <p>Product Name: Example Product</p>
+                <p>Price per Day: $10</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h2>Date Selection</h2>
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" name="start-date" required>
+            </td>
+        </tr>
+        <tr>    
+            <td>
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" name="end-date" required>
+            </td>
+        
+        </tr>
+        <tr>
+            <td>
+                <label for="days">Number of Days:</label>
+                <input type="number" id="days" name="days" min="1" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="calculate-button">Calculate Rent</button>
+                <p id="total-rent">Total Rent: $0</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button id="payment-button">Payment</button>
+                
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        document.getElementById('calculate-button').addEventListener('click', function() {
+            const startDate = new Date(document.getElementById('start-date').value);
+            const endDate = new Date(document.getElementById('end-date').value);
+            const days = parseInt(document.getElementById('days').value);
+
+            if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime()) && days > 0) {
+                const pricePerDay = 10; // Change this to the actual price per day
+                const totalRent = pricePerDay * days;
+                document.getElementById('total-rent').textContent = `Total Rent: $${totalRent}`;
+            } else {
+                alert('Please select valid dates and number of days.');
+            }
+        });
+    </script>
+</body>
+</html>

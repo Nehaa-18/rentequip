@@ -1,0 +1,155 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Booking Form</title>
+</head>
+<body>
+    <h1>Equipment Booking Form</h1>
+    <form method="post" action="{% url 'book_equipment' %}">
+        {% csrf_token %}
+        <label for="product_id">Product:</label>
+        <select id="product_id" name="product_id" required>
+            {% for product in products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required><br><br>
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required><br><br>
+        <label for="driver_id">Driver:</label>
+        <select id="driver_id" name="driver_id">
+            <option value="">None</option>
+            {% for driver in drivers %}
+                <option value="{{ driver.id }}">{{ driver.name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="technician_id">Technician:</label>
+        <select id="technician_id" name="technician_id">
+            <option value="">None</option>
+            {% for technician in technicians %}
+                <option value="{{ technician.id }}">{{ technician.name }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Book">
+    </form>
+</body>
+</html> {% endcomment %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipment Rental Booking</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  
+}
+
+.container {
+  max-width: 400px; /* Decreased max-width */
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-image: url("{% static 'sliderbg.jpg' %}");
+  background-size: cover;
+  background-position: center; 
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-top: 0; /* Removed margin-top */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+select, input[type="number"], input[type="date"], input[type="submit"] {
+  padding: 10px;
+  margin-bottom: 12px; /* Decreased margin-bottom */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Set width to 100% for all input elements */
+}
+
+input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+</style>
+<script>
+  window.onload = function() {
+    var startDateInput = document.getElementById('start_date');
+    var endDateInput = document.getElementById('end_date');
+    
+    startDateInput.addEventListener('change', function() {
+      var startDate = new Date(startDateInput.value);
+      var minEndDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // Next day
+      endDateInput.setAttribute('min', minEndDate.toISOString().split('T')[0]);
+
+      // Update max end date
+      var maxEndDate = new Date(startDate.getTime() + 14 * 24 * 60 * 60 * 1000); // 14 days later
+      endDateInput.setAttribute('max', maxEndDate.toISOString().split('T')[0]);
+    });
+
+    endDateInput.addEventListener('change', function() {
+      var endDate = new Date(endDateInput.value);
+      var startDate = new Date(startDateInput.value);
+      if (endDate < startDate) {
+        endDateInput.value = startDateInput.value;
+      }
+    });
+  }
+</script>
+</head>
+<body>
+  <div class="container">
+    <h1>Equipment Booking Form</h1>
+    <form method="post" action="{% url 'book_equipment' %}">
+      {% csrf_token %}
+      {% comment %} <input type="hidden" id="product_id" name="product_id" value="{{ product_id }}">  {% endcomment %}
+      <label for="name">Product:</label>
+      <input type="text" id="name" name="name" value="{{ name }}" readonly><br>
+      <label for="start_date">Start Date:</label>
+      <input type="date" id="start_date" name="start_date" required><br>
+      <label for="end_date">End Date:</label>
+      <input type="date" id="end_date" name="end_date" required><br>
+      <label>Driver:</label>
+      <input type="radio" id="driver_needed" name="driver_needed" value="yes">
+      <label for="driver_needed">Yes</label>
+      <input type="radio" id="driver_not_needed" name="driver_needed" value="no" checked>
+      <label for="driver_not_needed">No</label><br>
+      <label>Technician:</label>
+      <input type="radio" id="technician_needed" name="technician_needed" value="yes">
+      <label for="technician_needed">Yes</label>
+      <input type="radio" id="technician_not_needed" name="technician_needed" value="no" checked>
+      <label for="technician_not_needed">No</label><br>
+      <input type="submit" value="Book">
+    </form>
+  </div>
+</body>
+</html>
